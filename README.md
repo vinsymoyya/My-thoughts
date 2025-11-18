@@ -7,7 +7,7 @@
 
 - 🌱 I’m currently learning **Artificial Intelligence, Cyber Security, Nano Technology**
 
-- 👯 I’m looking to collaborate on [Start up challenge](https://vision.hack2skill.com/event/imobilothon-5)
+- 👯 I’m looking to collaborate on **Creative Projects**
 
 - 🤝 I’m looking for help with **Freelancing Projects**
 
