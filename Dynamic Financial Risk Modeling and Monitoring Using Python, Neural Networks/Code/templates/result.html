@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Risk Assessment Results</h1>
+        </header>
+
+        <div class="results-container">
+            <div class="result-card {% if is_approved %}approved{% else %}rejected{% endif %}">
+                <h2>Loan Status</h2>
+                <div class="status-badge">
+                    {% if is_approved %}
+                    <span class="approved-badge">APPROVED</span>
+                    {% else %}
+                    <span class="rejected-badge">NOT APPROVED</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Risk Score</h3>
+                    <div class="score-display">
+                        <div class="score-value">{{ "%.2f"|format(risk_score) }}</div>
+                        <div class="score-gauge">
+                            <canvas id="riskGauge"></canvas>
+                        </div>
+                    </div>
+                    <p class="score-description">
+                        {% if risk_score < 30 %}
+                        Low Risk - Excellent profile
+                        {% elif risk_score < 50 %}
+                        Moderate Risk - Good profile
+                        {% elif risk_score < 70 %}
+                        High Risk - Careful consideration needed
+                        {% else %}
+                        Very High Risk - Significant concerns
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Approval Probability</h3>
+                    <div class="probability-display">
+                        <div class="probability-value">{{ "%.1f"|format(approval_probability * 100) }}%</div>
+                        <div class="probability-bar">
+                            <div class="probability-fill" style="width: {{ approval_probability * 100 }}%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h3>Recommendations</h3>
+                <ul>
+                    {% if risk_score > 50 %}
+                    <li>Consider increasing your down payment</li>
+                    <li>Work on improving your credit score</li>
+                    <li>Reduce existing debt</li>
+                    {% endif %}
+                    {% if approval_probability < 0.7 %}
+                    <li>Consider a shorter loan term</li>
+                    <li>Provide additional collateral</li>
+                    <li>Consider a co-signer</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <a href="/" class="back-btn">New Assessment</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Risk Assessment System. Powered by Advanced AI.</p>
+    </footer>
+
+    <script>
+        // Initialize Risk Score Gauge
+        const ctx = document.getElementById('riskGauge').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [{{ risk_score }}, 100 - {{ risk_score }}],
+                    backgroundColor: [
+                        '{{ "#ff4444" if risk_score > 70 else "#ffa726" if risk_score > 50 else "#66bb6a" }}',
+                        '#e0e0e0'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '70%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+    <script src="{{ url_for('static', path='/js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Risk Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Loan Risk Assessment</h1>
+            <p class="subtitle">Advanced AI-powered risk assessment and loan approval prediction</p>
+        </header>
+
+        <div class="form-container">
+            <form action="/predict" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="credit_score">Credit Score</label>
+                        <input type="number" id="credit_score" name="credit_score" min="300" max="850" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employment_status">Employment Status</label>
+                        <select id="employment_status" name="employment_status" required>
+                            <option value="Employed">Employed</option>
+                            <option value="Self-Employed">Self-Employed</option>
+                            <option value="Unemployed">Unemployed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="education_level">Education Level</label>
+                        <select id="education_level" name="education_level" required>
+                            <option value="High School">High School</option>
+                            <option value="Associate">Associate</option>
+                            <option value="Bachelor">Bachelor</option>
+                            <option value="Master">Master</option>
+                            <option value="Doctorate">Doctorate</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loan_amount">Loan Amount ($)</label>
+                        <input type="number" id="loan_amount" name="loan_amount" min="1000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loan_duration">Loan Duration (months)</label>
+                        <input type="number" id="loan_duration" name="loan_duration" min="6" max="360" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="credit_utilization">Credit Card Utilization Rate (%)</label>
+                        <input type="number" id="credit_utilization" name="credit_utilization" min="0" max="100" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankruptcy_history">Bankruptcy History</label>
+                        <input type="number" id="bankruptcy_history" name="bankruptcy_history" min="0" value="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loan_defaults">Previous Loan Defaults</label>
+                        <input type="number" id="loan_defaults" name="loan_defaults" min="0" value="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="credit_history_length">Length of Credit History (years)</label>
+                        <input type="number" id="credit_history_length" name="credit_history_length" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="monthly_income">Monthly Income ($)</label>
+                        <input type="number" id="monthly_income" name="monthly_income" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="net_worth">Net Worth ($)</label>
+                        <input type="number" id="net_worth" name="net_worth" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interest_rate">Interest Rate (%)</label>
+                        <input type="number" id="interest_rate" name="interest_rate" min="0" max="100" step="0.01" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Assess Risk</button>
+            </form>
+        </div>
+
+        <div class="insights">
+            <h2>Risk Assessment Insights</h2>
+            <div class="insight-cards">
+                <div class="insight-card">
+                    <h3>Credit Score Impact</h3>
+                    <p>Higher credit scores (700+) significantly improve approval chances and reduce risk scores.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Income vs. Loan Amount</h3>
+                    <p>Monthly income should be at least 3x the monthly loan payment for optimal approval chances.</p>
+                </div>
+                <div class="insight-card">
+                    <h3>Credit Utilization</h3>
+                    <p>Keep credit utilization below 30% for better risk assessment outcomes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Risk Assessment System. Powered by Advanced AI.</p>
+    </footer>
+
+    <script src="{{ url_for('static', path='/js/script.js') }}"></script>
+</body>
+</html>
